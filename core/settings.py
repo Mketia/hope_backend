@@ -4,6 +4,13 @@ Django settings for core project.
 
 from datetime import timedelta
 from pathlib import Path
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+ENVIRONMENT = os.getenv("ENVIRONMENT")
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -13,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-p5-n)r@*ml6ih&km8z)fsy0r=(5byxb_72a&5!oj#!a4#s9*(4'
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -94,12 +101,28 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-DATABASES = {
+
+if ENVIRONMENT == "production":
+    DATABASES = {
+        "default": {
+            "ENGINE":"django.db.backends.postgresql",
+            "NAME": os.getenv("DB_NAME"),
+            "USER": os.getenv("DB_USERNAME"),
+            "PASSWORD": os.getenv("DB_PASSWORD"),
+            "HOST": os.getenv("DB_HOST"),
+            "PORT": os.getenv("DB_PORT"),
+        }
+    }
+    
+else:
+    DATABASES = {
+
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
 
 
 # Password validation
