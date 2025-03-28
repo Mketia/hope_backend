@@ -4,8 +4,7 @@ from account.views import (
     login, 
     logout, 
     request_reset_code,
-    set_new_password, 
-    verify_reset_code
+    set_new_password
 )
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
