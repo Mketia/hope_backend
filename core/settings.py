@@ -18,7 +18,7 @@ SECRET_KEY = 'django-insecure-p5-n)r@*ml6ih&km8z)fsy0r=(5byxb_72a&5!oj#!a4#s9*(4
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", 'hope-backend-9gc3.onrender.com']
 CORS_ALLOWED_ORIGINS = ["http://127.0.0.1:5173", "http://127.0.0.1:8000", "http://localhost:5173", "http://localhost:5174", "http://localhost:5175"]
 
 
