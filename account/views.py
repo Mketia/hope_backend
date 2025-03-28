@@ -3,6 +3,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from django.contrib.auth import get_user_model
 from account.services.account import VisitorService
+from base.email import EmailService
 from base.models import ResetCode
 
 User = get_user_model()
@@ -55,6 +56,19 @@ def request_reset_code(request):
     try:
         user = User.objects.get(email=email)
         code = ResetCode.generate_reset_code(user)
+        send_email = EmailService()
+        subject = "Password Reset Code"
+        text_body = f"Hi,\n\nYour reset code is: {code}\n\nIf you did not request this, please ignore this email."
+        html_body = f"""
+        <p>Hi,</p>
+        <p>We received a request to reset your password. Your reset code is:</p>
+        <h2>{code}</h2>
+        <p>Please enter this code in the password reset form to continue.</p>
+        <p>If you did not request this, please ignore this email. Your account remains secure.</p>
+        <br>
+        <p>Best,<br>Hope for Children Foundation Team</p>
+        """
+        send_email.send_email(email, subject, text_body, html_body)
         return Response({"message": "Reset code generated successfully", "code": code})
     except User.DoesNotExist:
         return Response({"error": "User not found"}, status=404)

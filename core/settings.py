@@ -7,6 +7,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 import os
 
+
 load_dotenv()
 
 ENVIRONMENT = os.getenv("ENVIRONMENT")
@@ -169,3 +170,9 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+EMAIL_BACKEND = "postmark.backends.PostmarkBackend"
+
+POSTMARK_API_TOKEN = os.getenv("POSTMARK_API_TOKEN")
+DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL")
