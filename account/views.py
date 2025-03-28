@@ -3,7 +3,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from django.contrib.auth import get_user_model
 from account.services.account import VisitorService
-from .models import ResetCode
+from base.models import ResetCode
 
 User = get_user_model()
 visitor_service = VisitorService()
