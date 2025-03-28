@@ -3,7 +3,8 @@ from account.views import (
     register, 
     login, 
     logout, 
-    request_reset_code, 
+    request_reset_code,
+    set_new_password, 
     verify_reset_code
 )
 from rest_framework_simplejwt.views import (
@@ -20,5 +21,5 @@ urlpatterns = [
     
     # ✅ Add password reset routes
     path('request-reset-code/', request_reset_code, name='request-reset-code'),
-    path('verify-reset-code/', verify_reset_code, name='verify-reset-code'),
+    path('new-password/', set_new_password, name='set_new_password'),
 ]

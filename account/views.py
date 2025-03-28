@@ -74,23 +74,32 @@ def request_reset_code(request):
         return Response({"error": "User not found"}, status=404)
 
 
-# ✅ New Endpoint to Verify Reset Code
 @api_view(['POST'])
-def verify_reset_code(request):
-    """Verifies if the provided reset code is correct."""
+def set_new_password(request):
+    """Verifies the reset code and updates the user's password."""
     email = request.data.get("email")
     code = request.data.get("code")
+    new_password = request.data.get("new_password")
 
-    if not email or not code:
-        return Response({"error": "Email and code are required"}, status=400)
+    if not email or not code or not new_password:
+        return Response({"error": "Email, code, and new password are required"}, status=400)
 
     try:
         user = User.objects.get(email=email)
         reset_entry = ResetCode.objects.filter(user=user, code=code).first()
 
-        if reset_entry:
-            return Response({"message": "Reset code is valid"})
-        else:
+        if not reset_entry:
             return Response({"error": "Invalid reset code"}, status=400)
+
+        # Set the new password
+        user.set_password(new_password)
+        user.save()
+
+        # Delete the reset code after successful password reset
+        reset_entry.delete()
+
+        return Response({"message": "Password reset successfully"})
+    
     except User.DoesNotExist:
         return Response({"error": "User not found"}, status=404)
+
