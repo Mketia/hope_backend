@@ -44,7 +44,6 @@ def logout(request):
         return Response({"error": str(e)}, status=500)
 
 
-# ✅ New Endpoint to Generate Reset Code
 @api_view(['POST'])
 def request_reset_code(request):
     """Generates a reset code for the given user."""
