@@ -32,3 +32,4 @@ class ResetCode(BaseModel):
             defaults={'code': code}
         )
         return code
+
