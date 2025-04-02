@@ -27,7 +27,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 DEBUG = True
 
 ALLOWED_HOSTS = ["127.0.0.1", "localhost", 'hope-backend-9gc3.onrender.com']
-CORS_ALLOWED_ORIGINS = ["http://127.0.0.1:5173", "http://127.0.0.1:8000", "https://hope-frontend-v3v5.vercel.app"]
+CORS_ALLOWED_ORIGINS = ["http://127.0.0.1:5173", "http://127.0.0.1:8000", "https://hope-frontend-v3v5.vercel.app" ,"https://hope-frontend-kappa.vercel.app"]
 
 
 # Application definition
